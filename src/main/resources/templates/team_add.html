@@ -41,6 +41,7 @@
                                    name="name"
                                    class="form-control"
                                    placeholder="Борусия"
+                                   th:field="*{name}"
                             />
                         </div>
 
@@ -51,6 +52,7 @@
                                    name="league"
                                    class="form-control"
                                    placeholder="Бундеслига"
+                                   th:field="*{league}"
                             />
                         </div>
 
@@ -58,9 +60,32 @@
                             <label for="coach" class="control-label">Тренер *</label>
                             <input type="text"
                                    id="coach"
+                                   th:field="*{coach}"
                                    name="coach"
                                    class="form-control"
                                    placeholder="Зидан"
+                            />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="trophiesCount" class="control-label">Кол-во трофеев *</label>
+                            <input type="text"
+                                   id="trophiesCount"
+                                   name="trophiesCount"
+                                   th:field="*{trophiesCount}"
+                                   class="form-control"
+                                   placeholder="Зидан"
+                            />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="budget" class="control-label">Бюджет *</label>
+                            <input type="text"
+                                   id="budget"
+                                   name="budget"
+                                   th:field="*{budget}"
+                                   class="form-control"
+                                   placeholder="100000000 RUB"
                             />
                         </div>
 

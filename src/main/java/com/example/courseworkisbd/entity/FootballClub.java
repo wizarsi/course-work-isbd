@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 @Getter
 @Setter
@@ -40,4 +41,7 @@ public class FootballClub {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sport_director", referencedColumnName = "id")
     private SportDirector sportDirector;
+
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private ArrayList<FootballLeague> footballLeagues;
 }

@@ -15,7 +15,6 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 public class SportDirectorDto
 {
-    private Long id;
     @NotEmpty
     private String firstName;
     @NotEmpty
