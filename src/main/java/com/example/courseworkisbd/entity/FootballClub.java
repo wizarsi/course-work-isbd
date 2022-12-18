@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -35,7 +36,6 @@ public class FootballClub {
     @Column(nullable = false)
     private int budget;
 
-    @Column(nullable = false)
     private int rating;
 
     @OneToOne(fetch = FetchType.EAGER)
@@ -43,5 +43,5 @@ public class FootballClub {
     private SportDirector sportDirector;
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private ArrayList<FootballLeague> footballLeagues;
+    private Set<FootballLeague> footballLeagues;
 }

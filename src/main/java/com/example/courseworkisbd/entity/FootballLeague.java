@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Set;
 
 
 @Getter
@@ -27,4 +29,7 @@ public class FootballLeague {
 
     @Column(nullable = false)
     private int count_matches;
+
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<FootballClub> footballClubs;
 }
