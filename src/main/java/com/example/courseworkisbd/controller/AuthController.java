@@ -1,8 +1,8 @@
 package com.example.courseworkisbd.controller;
 
 
-import com.example.courseworkisbd.dto.UserDto;
-import com.example.courseworkisbd.entity.User;
+import com.example.courseworkisbd.dto.SportDirectorDto;
+import com.example.courseworkisbd.entity.SportDirector;
 import com.example.courseworkisbd.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,17 +36,17 @@ public class AuthController {
     // handler method to handle user registration request
     @GetMapping("register")
     public String showRegistrationForm(Model model){
-        UserDto user = new UserDto();
+        SportDirectorDto user = new SportDirectorDto();
         model.addAttribute("user", user);
         return "register";
     }
 
     // handler method to handle register user form submit request
     @PostMapping("/register/save")
-    public String registration(@Valid @ModelAttribute("user") UserDto user,
+    public String registration(@Valid @ModelAttribute("sportDirector") SportDirectorDto user,
                                BindingResult result,
                                Model model){
-        User existing = userService.findByEmail(user.getEmail());
+        SportDirector existing = userService.findByEmail(user.getEmail());
         if (existing != null) {
             result.rejectValue("email", null, "There is already an account registered with that email");
         }
@@ -60,7 +60,7 @@ public class AuthController {
 
     @GetMapping("/users")
     public String listRegisteredUsers(Model model){
-        List<UserDto> users = userService.findAllUsers();
+        List<SportDirectorDto> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "users";
     }

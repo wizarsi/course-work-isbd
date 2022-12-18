@@ -1,15 +1,15 @@
 package com.example.courseworkisbd.service;
 
 
-import com.example.courseworkisbd.dto.UserDto;
-import com.example.courseworkisbd.entity.User;
+import com.example.courseworkisbd.dto.SportDirectorDto;
+import com.example.courseworkisbd.entity.SportDirector;
 
 import java.util.List;
 
 public interface UserService {
-    void saveUser(UserDto userDto);
+    void saveUser(SportDirectorDto sportDirectorDto);
 
-    User findByEmail(String email);
+    SportDirector findByEmail(String email);
 
-    List<UserDto> findAllUsers();
+    List<SportDirectorDto> findAllUsers();
 }

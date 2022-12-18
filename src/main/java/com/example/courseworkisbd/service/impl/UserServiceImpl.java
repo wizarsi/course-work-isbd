@@ -1,9 +1,9 @@
 package com.example.courseworkisbd.service.impl;
 
 
-import com.example.courseworkisbd.dto.UserDto;
+import com.example.courseworkisbd.dto.SportDirectorDto;
 import com.example.courseworkisbd.entity.Role;
-import com.example.courseworkisbd.entity.User;
+import com.example.courseworkisbd.entity.SportDirector;
 import com.example.courseworkisbd.repository.RoleRepository;
 import com.example.courseworkisbd.repository.UserRepository;
 import com.example.courseworkisbd.service.UserService;
@@ -30,41 +30,41 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(UserDto userDto) {
-        User user = new User();
-        user.setName(userDto.getFirstName() + " " + userDto.getLastName());
-        user.setEmail(userDto.getEmail());
+    public void saveUser(SportDirectorDto sportDirectorDto) {
+        SportDirector sportDirector = new SportDirector();
+        sportDirector.setName(sportDirectorDto.getFirstName() + " " + sportDirectorDto.getLastName());
+        sportDirector.setEmail(sportDirectorDto.getEmail());
 
         //encrypt the password once we integrate spring security
         //user.setPassword(userDto.getPassword());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        sportDirector.setPassword(passwordEncoder.encode(sportDirectorDto.getPassword()));
         Role role = roleRepository.findByName("ROLE_ADMIN");
         if(role == null){
             role = checkRoleExist();
         }
-        user.setRoles(Arrays.asList(role));
-        userRepository.save(user);
+        sportDirector.setRoles(Arrays.asList(role));
+        userRepository.save(sportDirector);
     }
 
     @Override
-    public User findByEmail(String email) {
+    public SportDirector findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
     @Override
-    public List<UserDto> findAllUsers() {
-        List<User> users = userRepository.findAll();
-        return users.stream().map((user) -> convertEntityToDto(user))
+    public List<SportDirectorDto> findAllUsers() {
+        List<SportDirector> sportDirectors = userRepository.findAll();
+        return sportDirectors.stream().map((user) -> convertEntityToDto(user))
                 .collect(Collectors.toList());
     }
 
-    private UserDto convertEntityToDto(User user){
-        UserDto userDto = new UserDto();
-        String[] name = user.getName().split(" ");
-        userDto.setFirstName(name[0]);
-        userDto.setLastName(name[1]);
-        userDto.setEmail(user.getEmail());
-        return userDto;
+    private SportDirectorDto convertEntityToDto(SportDirector sportDirector){
+        SportDirectorDto sportDirectorDto = new SportDirectorDto();
+        String[] name = sportDirector.getName().split(" ");
+        sportDirectorDto.setFirstName(name[0]);
+        sportDirectorDto.setLastName(name[1]);
+        sportDirectorDto.setEmail(sportDirector.getEmail());
+        return sportDirectorDto;
     }
 
     private Role checkRoleExist() {

@@ -13,7 +13,7 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto
+public class SportDirectorDto
 {
     private Long id;
     @NotEmpty

@@ -1,7 +1,7 @@
 package com.example.courseworkisbd.security;
 
 import com.example.courseworkisbd.entity.Role;
-import com.example.courseworkisbd.entity.User;
+import com.example.courseworkisbd.entity.SportDirector;
 import com.example.courseworkisbd.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,12 +24,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
+        SportDirector sportDirector = userRepository.findByEmail(email);
 
-        if (user != null) {
-            return new org.springframework.security.core.userdetails.User(user.getEmail(),
-                    user.getPassword(),
-                    mapRolesToAuthorities(user.getRoles()));
+        if (sportDirector != null) {
+            return new org.springframework.security.core.userdetails.User(sportDirector.getEmail(),
+                    sportDirector.getPassword(),
+                    mapRolesToAuthorities(sportDirector.getRoles()));
         }else{
             throw new UsernameNotFoundException("Invalid username or password.");
         }
