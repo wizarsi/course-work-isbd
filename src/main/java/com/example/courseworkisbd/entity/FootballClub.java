@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -20,10 +22,10 @@ public class FootballClub {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique=true)
     private String name;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "coach", referencedColumnName = "id")
     private Coach coach;
 
@@ -31,17 +33,15 @@ public class FootballClub {
     private int playersCount;
 
     @Column(nullable = false)
-    private int trophiesCount;
-
-    @Column(nullable = false)
     private int budget;
 
-    private int rating;
+    @Column(nullable = false)
+    private int wonMatches;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sport_director", referencedColumnName = "id")
     private SportDirector sportDirector;
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<FootballLeague> footballLeagues;
+    private List<FootballLeague> footballLeagues;
 }

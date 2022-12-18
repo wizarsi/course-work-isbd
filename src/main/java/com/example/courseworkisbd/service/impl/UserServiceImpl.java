@@ -29,6 +29,10 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public SportDirector getSportDirectorByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
     @Override
     public void saveUser(SportDirectorDto sportDirectorDto) {
         SportDirector sportDirector = new SportDirector();

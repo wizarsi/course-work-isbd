@@ -21,10 +21,6 @@ public class Coach {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String surname;
-
-    @Column(nullable = false)
     private int age;
 
     @OneToOne(fetch = FetchType.EAGER)

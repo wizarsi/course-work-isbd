@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class FootballClubController {
@@ -31,6 +32,13 @@ public class FootballClubController {
         return "team_add";
     }
 
+    @GetMapping("/teams")
+    public String teams(Model model){
+        List<FootballClubDto> footballClubs = footballClubService.findAllFootballClubsDto();
+        model.addAttribute("footballClubs", footballClubs);
+        return "teams";
+    }
+
     @PostMapping("/team/add")
     public String registration(@Valid @ModelAttribute("footballClubDto") FootballClubDto footballClubDto,
                                BindingResult result,
@@ -39,11 +47,13 @@ public class FootballClubController {
         if (existing != null) {
             result.rejectValue("name", null, "There is already an football club registered with that name");
         }
-        if (result.hasErrors()) {
+        /*if (result.hasErrors()) {
             model.addAttribute("footballClubDto", footballClubDto);
+            System.out.println("blin");
+
             return "team_add";
-        }
-        footballClubService.saveFooballClub(footballClubDto);
+        }*/
+        footballClubService.saveFootballClub(footballClubDto);
         return "team_add";
     }
 

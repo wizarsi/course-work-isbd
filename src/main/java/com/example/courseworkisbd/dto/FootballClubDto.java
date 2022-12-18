@@ -21,7 +21,12 @@ public class FootballClubDto
     @NotEmpty
     private String coach;
 
-    private int trophiesCount;
+    private int wonMatches;
 
     private int budget;
+
+    private int playersCount;
+
+    private String sportDirector;
+
 }
