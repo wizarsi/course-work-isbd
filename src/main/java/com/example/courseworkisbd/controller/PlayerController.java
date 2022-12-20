@@ -35,11 +35,20 @@ public class PlayerController {
         return "players";
     }
 
+    @GetMapping("/myTeam")
+    public String myTeam(Model model) {
+        List<PlayerDto> players = playerService.findAllPlayersDtoBySportDirector();
+        model.addAttribute("myTeam", players);
+        return "myTeam";
+    }
+
     @PostMapping("/players/add")
     public String addPlayer(@Valid @ModelAttribute("playerDto") PlayerDto playerDto,
                             BindingResult result, Model model) {
         playerService.savePlayer(playerDto);
         return "player_add";
     }
+
+
 
 }

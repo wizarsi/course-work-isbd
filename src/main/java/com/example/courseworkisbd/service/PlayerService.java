@@ -2,13 +2,12 @@ package com.example.courseworkisbd.service;
 
 import com.example.courseworkisbd.dto.FootballClubDto;
 import com.example.courseworkisbd.dto.PlayerDto;
-import com.example.courseworkisbd.entity.FootballClub;
-import com.example.courseworkisbd.entity.Player;
-import com.example.courseworkisbd.entity.PlayerContract;
-import com.example.courseworkisbd.entity.PlayerStatistic;
+import com.example.courseworkisbd.entity.*;
 import com.example.courseworkisbd.repository.FootballClubRepository;
 import com.example.courseworkisbd.repository.PlayerRepository;
 import com.example.courseworkisbd.service.impl.UserServiceImpl;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +27,15 @@ public class PlayerService {
 
     public Player findByPlayerName(PlayerDto playerDto) {
         return playerRepository.findByName(playerDto.getName());
+    }
+
+    public List<PlayerDto> findAllPlayersDtoBySportDirector() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String login = authentication.getName();
+        SportDirector sportDirector = userService.getSportDirectorByEmail(login);
+        List<Player> players = playerRepository.findAllByFootballClub_SportDirector(sportDirector);
+        return players.stream().map((player) -> convertEntityToDto(player))
+                .collect(Collectors.toList());
     }
 
     public List<PlayerDto> findAllPlayersDto() {
