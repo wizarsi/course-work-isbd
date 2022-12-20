@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-  xmlns:th="http://www.thymeleaf.org"
->
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Transfer Market</title>
@@ -23,37 +22,32 @@
                     <a class="nav-link active" aria-current="page" th:href="@{/register}">Register</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/login}">Login</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 <div class="container">
-    </br>
     <div class="row">
-        <button type="submit" class="btn btn-primary" th:href="@{/players}">Список игроков</button>
+        <h1> Футбольные лиги  </h1>
     </div>
-    </br>
-    <div class="row">
-        <a type="submit" class="btn btn-primary" th:href="@{/team_add}">Добавить команду</a>
-    </div>
-    </br>
-    <div class="row">
-        <a type="submit" class="btn btn-primary" th:href="@{/player_add}">Добавить игрока</a>
-    </div>
-    </br>
-    <div class="row">
-        <a type="submit" class="btn btn-primary" th:href="@{/teams}">Список команд</a>
-    </div>
-    </br>
-    <div class="row">
-        <a type="submit" class="btn btn-primary" th:href="@{/myteam}">Моя команда</a>
-    </div>
-    </br>
-    <div class="row">
-        <a type="submit" class="btn btn-primary" th:href="@{/transfers}">Трансферы</a>
-    </div>
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>Название</th>
+            <th>Страна</th>
+            <th>Количество матчей</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="sportDirector: ${sportDirectors}">
+            <td th:text="${sportDirector.firstName}"></td>
+            <td th:text="${sportDirector.lastName}"></td>
+            <td th:text="${sportDirector.email}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

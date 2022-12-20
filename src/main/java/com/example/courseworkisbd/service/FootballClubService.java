@@ -30,6 +30,10 @@ public class FootballClubService {
         return footballClubRepository.findByName(footballClubDto.getName());
     }
 
+    public FootballClub findByFootballClubByName(String footballClubName) {
+        return footballClubRepository.findByName(footballClubName);
+    }
+
     public void saveFootballClub(FootballClubDto footballClubDto) {
         FootballClub footballClub = new FootballClub();
         footballClub.setName(footballClubDto.getName());
@@ -59,8 +63,7 @@ public class FootballClubService {
     private FootballClubDto convertEntityToDto(FootballClub footballClub) {
         FootballClubDto footballClubDto = new FootballClubDto();
         footballClubDto.setName(footballClub.getName());
-        System.out.println(   footballClub.getFootballLeagues().size()
-);
+        System.out.println(footballClub.getFootballLeagues().size());
         footballClubDto.setLeague(footballClub.getFootballLeagues().get(0).getName());
         footballClubDto.setBudget(footballClub.getBudget());
         footballClubDto.setWonMatches(footballClub.getWonMatches());

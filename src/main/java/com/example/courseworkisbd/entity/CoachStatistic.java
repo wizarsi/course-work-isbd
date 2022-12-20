@@ -22,5 +22,5 @@ public class CoachStatistic {
     private int countMatches;
 
     @Column(name = "count_trophies", nullable = false)
-    private int count_trophies;
+    private int countTrophies;
 }
