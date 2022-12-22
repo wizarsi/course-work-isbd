@@ -1,8 +1,13 @@
 package com.example.courseworkisbd.controller;
 
 import com.example.courseworkisbd.dto.PlayerDto;
+import com.example.courseworkisbd.entity.FootballClub;
 import com.example.courseworkisbd.entity.Player;
+import com.example.courseworkisbd.entity.SportDirector;
 import com.example.courseworkisbd.service.PlayerService;
+import com.example.courseworkisbd.service.impl.UserServiceImpl;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,9 +21,11 @@ import java.util.List;
 @Controller
 public class PlayerController {
     private PlayerService playerService;
+    private UserServiceImpl userService;
 
-    public PlayerController(PlayerService playerService) {
+    public PlayerController(PlayerService playerService, UserServiceImpl userService) {
         this.playerService = playerService;
+        this.userService = userService;
     }
 
     @GetMapping("/player_add")
@@ -35,18 +42,23 @@ public class PlayerController {
         return "players";
     }
 
-    @GetMapping("/myTeam")
+    @GetMapping("/myteam")
     public String myTeam(Model model) {
         List<PlayerDto> players = playerService.findAllPlayersDtoBySportDirector();
         model.addAttribute("myTeam", players);
-        return "myTeam";
+        return "myteam";
     }
 
     @PostMapping("/players/add")
     public String addPlayer(@Valid @ModelAttribute("playerDto") PlayerDto playerDto,
                             BindingResult result, Model model) {
-        playerService.savePlayer(playerDto);
-        return "player_add";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String login = authentication.getName();
+        SportDirector sportDirector = userService.getSportDirectorByEmail(login);
+        if (sportDirector.getFootballClub() != null){
+            playerService.savePlayerBySportDirector(playerDto,sportDirector);
+        }
+        return "index";
     }
 
 

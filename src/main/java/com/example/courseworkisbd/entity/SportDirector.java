@@ -1,6 +1,8 @@
 package com.example.courseworkisbd.entity;
 
 import javax.persistence.*;
+
+import com.example.courseworkisbd.service.FootballClubService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +33,10 @@ public class SportDirector
 
     @Column(nullable=false)
     private String password;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "football_club", referencedColumnName = "id")
+    private FootballClub footballClub;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinTable(

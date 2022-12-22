@@ -48,11 +48,11 @@ public class PlayerStatistic {
 
     public PlayerStatistic(String stat) {
         String[] ints = stat.split(":");
-        this.wonMatches = Integer.getInteger(ints[0]);
-        this.countMatches = Integer.getInteger(ints[1]);
-        this.countTrophies = Integer.getInteger(ints[2]);
-        this.countAssists = Integer.getInteger(ints[3]);
-        this.countGoals = Integer.getInteger(ints[4]);
-        this.redCards = Integer.getInteger(ints[5]);
+        this.wonMatches = Integer.parseInt(ints[0]);
+        this.countMatches = Integer.parseInt(ints[1]);
+        this.countTrophies = Integer.parseInt(ints[2]);
+        this.countAssists = Integer.parseInt(ints[3]);
+        this.countGoals = Integer.parseInt(ints[4]);
+        this.redCards = Integer.parseInt(ints[5]);
     }
 }

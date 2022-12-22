@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <meta charset="UTF-8">
     <title>Transfer Market</title>
@@ -30,22 +31,32 @@
 </nav>
 <div class="container">
     <div class="row">
-        <h1> Футбольные лиги  </h1>
+        <h1> Мои игроки </h1>
     </div>
     <table class="table table-striped table-bordered table-hover">
         <thead class="table-dark">
-        <tr>
-            <th>Название</th>
-            <th>Страна</th>
-            <th>Количество матчей</th>
-        </tr>
+            <tr>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Возраст</th>
+                <th>Позиция</th>
+                <th>Победы:матчи:трофеи:передачи:голы:удаления</th>
+                <th>Зарплата</th>
+                <th>Рейтинг</th>
+                <th>Футбольный клуб</th>
+            </tr>
         </thead>
         <tbody>
-        <tr th:each="sportDirector: ${sportDirectors}">
-            <td th:text="${sportDirector.firstName}"></td>
-            <td th:text="${sportDirector.lastName}"></td>
-            <td th:text="${sportDirector.email}"></td>
-        </tr>
+            <tr th:each="player: ${myTeam}">
+                <td th:text="${player.name}"></td>
+                <td th:text="${player.surname}"></td>
+                <td th:text="${player.age}"></td>
+                <td th:text="${player.position}"></td>
+                <td th:text="${player.playerStatistic}"></td>
+                <td th:text="${player.playerContract}"></td>
+                <td th:text="${player.rating}"></td>
+                <td th:text="${player.footballClub}"></td>
+            </tr>
         </tbody>
     </table>
 </div>

@@ -13,7 +13,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Transfer Market</a>
+        <a class="navbar-brand" th:href="@{/index}">Transfer Market</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -31,7 +31,7 @@
 </nav>
 <div class="container">
     <div class="row">
-        <h1> Мои игроки </h1>
+        <h1> Все игроки </h1>
     </div>
     <table class="table table-striped table-bordered table-hover">
         <thead class="table-dark">
@@ -40,20 +40,21 @@
                 <th>Фамилия</th>
                 <th>Возраст</th>
                 <th>Позиция</th>
-                <th>Статистика</th>
+                <th>Победы:матчи:трофеи:передачи:голы:удаления</th>
                 <th>Зарплата</th>
                 <th>Рейтинг</th>
                 <th>Футбольный клуб</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="player: ${myTeam}">
+            <tr th:each="player: ${players}">
                 <td th:text="${player.name}"></td>
                 <td th:text="${player.surname}"></td>
                 <td th:text="${player.age}"></td>
                 <td th:text="${player.position}"></td>
                 <td th:text="${player.playerStatistic}"></td>
                 <td th:text="${player.playerContract}"></td>
+                <td th:text="${player.rating}"></td>
                 <td th:text="${player.footballClub}"></td>
             </tr>
         </tbody>

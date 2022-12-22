@@ -58,7 +58,7 @@ public class PlayerService {
         return playerDto;
     }
 
-    public void savePlayer(PlayerDto playerDto) {
+    public void savePlayerBySportDirector(PlayerDto playerDto,SportDirector sportDirector) {
         Player player = new Player();
         player.setName(playerDto.getName());
         player.setSurname(playerDto.getSurname());
@@ -70,8 +70,9 @@ public class PlayerService {
         playerContract.setSalary(Integer.parseInt(playerDto.getPlayerContract()));
         player.setPlayerContract(playerContract);
         player.setRating(playerDto.getRating());
-        player.setFootballClub(footballClubService.findByFootballClubByName(playerDto.getFootballClub()));
-
+        FootballClub footballClub = sportDirector.getFootballClub();
+        footballClub.setPlayersCount(footballClub.getPlayersCount() + 1);
+        player.setFootballClub(footballClub);
         playerRepository.save(player);
     }
 

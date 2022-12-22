@@ -1,5 +1,6 @@
 package com.example.courseworkisbd.repository;
 
+import com.example.courseworkisbd.entity.FootballClub;
 import com.example.courseworkisbd.entity.Player;
 import com.example.courseworkisbd.entity.SportDirector;
 import org.springframework.data.jpa.repository.JpaRepository;

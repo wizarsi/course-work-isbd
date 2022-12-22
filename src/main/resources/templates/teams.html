@@ -13,7 +13,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Transfer Market</a>
+        <a class="navbar-brand" th:href="@{/index}">Transfer Market</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -43,7 +43,6 @@
                 <th>Кол-во игроков</th>
                 <th>Тренер</th>
                 <th>Спортивный директор</th>
-                <th>Кол-во игроков</th>
             </tr>
         </thead>
         <tbody>
@@ -52,10 +51,9 @@
                 <td th:text="${footballClub.league}"></td>
                 <td th:text="${footballClub.budget}"></td>
                 <td th:text="${footballClub.wonMatches}"></td>
+                <td th:text="${footballClub.playersCount}"></td>
                 <td th:text="${footballClub.coach}"></td>
                 <td th:text="${footballClub.sportDirector}"></td>
-                <td th:text="${footballClub.playersCount}"></td>
-
             </tr>
         </tbody>
     </table>

@@ -12,8 +12,7 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FootballClubDto
-{
+public class FootballClubDto {
     @NotEmpty
     private String name;
     @NotEmpty
@@ -25,7 +24,7 @@ public class FootballClubDto
 
     private int budget;
 
-    private int playersCount;
+    private int playersCount = 0;
 
     private String sportDirector;
 

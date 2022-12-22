@@ -7,6 +7,9 @@ import com.example.courseworkisbd.entity.FootballLeague;
 import com.example.courseworkisbd.entity.SportDirector;
 import com.example.courseworkisbd.repository.FootballClubRepository;
 import com.example.courseworkisbd.service.FootballClubService;
+import com.example.courseworkisbd.service.impl.UserServiceImpl;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,9 +23,10 @@ import java.util.List;
 @Controller
 public class FootballClubController {
     private FootballClubService footballClubService;
-
-    public FootballClubController(FootballClubService footballClubService) {
+    private UserServiceImpl userService;
+    public FootballClubController(FootballClubService footballClubService, UserServiceImpl userService) {
         this.footballClubService = footballClubService;
+        this.userService=userService;
     }
 
     @GetMapping("/team_add")
@@ -43,18 +47,28 @@ public class FootballClubController {
     public String registration(@Valid @ModelAttribute("footballClubDto") FootballClubDto footballClubDto,
                                BindingResult result,
                                Model model){
-        FootballClub existing = footballClubService.findByFootballClubName(footballClubDto);
+        FootballClub existing = footballClubService.findFootballClubByName(footballClubDto.getName());
         if (existing != null) {
-            result.rejectValue("name", null, "There is already an football club registered with that name");
+            //result.rejectValue("name", null, "There is already an football club registered with that name");
+            return "index";
+
         }
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String login = authentication.getName();
+        SportDirector sportDirector = userService.getSportDirectorByEmail(login);
+        if (sportDirector.getFootballClub() != null) {
+            return "index";
+        }
+        footballClubService.saveFootballClub(footballClubDto);
+
         /*if (result.hasErrors()) {
             model.addAttribute("footballClubDto", footballClubDto);
             System.out.println("blin");
 
             return "team_add";
         }*/
-        footballClubService.saveFootballClub(footballClubDto);
-        return "team_add";
+        return "index";
     }
 
 }
