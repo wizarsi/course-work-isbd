@@ -4,6 +4,7 @@ import com.example.courseworkisbd.dto.PlayerDto;
 import com.example.courseworkisbd.entity.FootballClub;
 import com.example.courseworkisbd.entity.Player;
 import com.example.courseworkisbd.entity.SportDirector;
+import com.example.courseworkisbd.service.FootballClubService;
 import com.example.courseworkisbd.service.PlayerService;
 import com.example.courseworkisbd.service.impl.UserServiceImpl;
 import org.springframework.security.core.Authentication;
@@ -22,10 +23,12 @@ import java.util.List;
 public class PlayerController {
     private PlayerService playerService;
     private UserServiceImpl userService;
+    private FootballClubService footballClubService;
 
-    public PlayerController(PlayerService playerService, UserServiceImpl userService) {
+    public PlayerController(PlayerService playerService, UserServiceImpl userService,FootballClubService footballClubService) {
         this.playerService = playerService;
         this.userService = userService;
+        this.footballClubService =footballClubService;
     }
 
     @GetMapping("/player_add")
@@ -55,7 +58,7 @@ public class PlayerController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String login = authentication.getName();
         SportDirector sportDirector = userService.getSportDirectorByEmail(login);
-        if (sportDirector.getFootballClub() != null){
+        if (footballClubService.findFootballClubBySportDirector(sportDirector)!= null){
             playerService.savePlayerBySportDirector(playerDto,sportDirector);
         }
         return "index";

@@ -29,6 +29,9 @@ public class FootballClubService {
     public FootballClub findFootballClubByName(String name) {
         return footballClubRepository.findByName(name);
     }
+    public FootballClub findFootballClubBySportDirector(SportDirector sportDirector) {
+        return footballClubRepository.findFootballClubBySportDirector(sportDirector);
+    }
 
     public void saveFootballClub(FootballClubDto footballClubDto) {
         FootballClub footballClub = new FootballClub();
@@ -48,7 +51,7 @@ public class FootballClubService {
         SportDirector sportDirector = userService.getSportDirectorByEmail(login);
         footballClub.setSportDirector(sportDirector);
         footballClubRepository.save(footballClub);
-        userService.findByEmail(sportDirector.getEmail()).setFootballClub(footballClub);
+        sportDirector.setFootballClub(footballClub);
     }
 
     public List<FootballClubDto> findAllFootballClubsDto() {

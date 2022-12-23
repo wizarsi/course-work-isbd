@@ -70,7 +70,7 @@ public class PlayerService {
         playerContract.setSalary(Integer.parseInt(playerDto.getPlayerContract()));
         player.setPlayerContract(playerContract);
         player.setRating(playerDto.getRating());
-        FootballClub footballClub = sportDirector.getFootballClub();
+        FootballClub footballClub = footballClubService.findFootballClubBySportDirector(sportDirector);
         footballClub.setPlayersCount(footballClub.getPlayersCount() + 1);
         player.setFootballClub(footballClub);
         playerRepository.save(player);

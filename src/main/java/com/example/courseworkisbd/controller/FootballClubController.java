@@ -57,7 +57,7 @@ public class FootballClubController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String login = authentication.getName();
         SportDirector sportDirector = userService.getSportDirectorByEmail(login);
-        if (sportDirector.getFootballClub() != null) {
+        if (footballClubService.findFootballClubBySportDirector(sportDirector) != null) {
             return "index";
         }
         footballClubService.saveFootballClub(footballClubDto);
