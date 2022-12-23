@@ -48,6 +48,7 @@ public class FootballClubService {
         SportDirector sportDirector = userService.getSportDirectorByEmail(login);
         footballClub.setSportDirector(sportDirector);
         footballClubRepository.save(footballClub);
+        userService.findByEmail(sportDirector.getEmail()).setFootballClub(footballClub);
     }
 
     public List<FootballClubDto> findAllFootballClubsDto() {
