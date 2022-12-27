@@ -71,7 +71,7 @@ public class TransferService {
         transferRequest.setFootballClub(footballClubService.findFootballClubBySportDirector(sportDirector));
         transferRequest.setPlayer(playerRepository.findByNameAndSurname(transferRequestDto.getName(), transferRequestDto.getSurname()));
         transferRequest.setValue(transferRequestDto.getValue());
-        transferRequest.setCurrency(sportDirector.getFootballClub().getCurrency());
+        transferRequest.setCurrency(footballClubService.findFootballClubBySportDirector(sportDirector).getCurrency());
         transferRepository.save(transferRequest);
     }
 
