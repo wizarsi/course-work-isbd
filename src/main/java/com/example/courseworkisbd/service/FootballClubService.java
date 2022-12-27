@@ -36,7 +36,7 @@ public class FootballClubService {
     public void saveFootballClub(FootballClubDto footballClubDto) {
         FootballClub footballClub = new FootballClub();
         footballClub.setName(footballClubDto.getName());
-        footballClub.setBudget(footballClub.getBudget());
+        footballClub.setBudget(footballClubDto.getBudget());
         footballClub.setWonMatches(footballClubDto.getWonMatches());
         FootballLeague footballLeague = new FootballLeague();
         footballLeague.setName(footballClubDto.getLeague());

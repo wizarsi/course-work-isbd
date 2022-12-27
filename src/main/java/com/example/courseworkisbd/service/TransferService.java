@@ -40,6 +40,7 @@ public class TransferService {
         transferRequestDto.setName(transferRequest.getPlayer().getName());
         transferRequestDto.setSurname(transferRequest.getPlayer().getSurname());
         transferRequestDto.setFootballClub(transferRequest.getFootballClub().getName());
+        transferRequestDto.setAge(transferRequest.getPlayer().getAge());
         return transferRequestDto;
     }
 

@@ -39,7 +39,7 @@ public class TransferController {
         if (footballClubService.findFootballClubBySportDirector(sportDirector) == null) {
             return "index";
         }
-        model.addAttribute("balance", footballClubService.findFootballClubBySportDirector(sportDirector).getBudget());
+        model.addAttribute("clubBalance", footballClubService.findFootballClubBySportDirector(sportDirector).getBudget());
         return "transfers";
     }
 

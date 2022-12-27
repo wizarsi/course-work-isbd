@@ -19,6 +19,8 @@ public class TransferRequestDto {
 
     private String position;
 
+    private int age;
+
     private String footballClub;
 
     private int value;
