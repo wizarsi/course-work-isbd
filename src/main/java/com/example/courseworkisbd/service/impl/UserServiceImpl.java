@@ -2,6 +2,7 @@ package com.example.courseworkisbd.service.impl;
 
 
 import com.example.courseworkisbd.dto.SportDirectorDto;
+import com.example.courseworkisbd.entity.FootballClub;
 import com.example.courseworkisbd.entity.Role;
 import com.example.courseworkisbd.entity.SportDirector;
 import com.example.courseworkisbd.repository.RoleRepository;
@@ -60,6 +61,10 @@ public class UserServiceImpl implements UserService {
         List<SportDirector> sportDirectors = userRepository.findAll();
         return sportDirectors.stream().map((user) -> convertEntityToDto(user))
                 .collect(Collectors.toList());
+    }
+
+    public void updateUser(SportDirector sportDirector, FootballClub footballClub) {
+        userRepository.findByEmail(sportDirector.getEmail()).setFootballClub(footballClub);
     }
 
     private SportDirectorDto convertEntityToDto(SportDirector sportDirector){
