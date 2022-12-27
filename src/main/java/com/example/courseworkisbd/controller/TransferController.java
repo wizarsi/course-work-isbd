@@ -1,6 +1,7 @@
 package com.example.courseworkisbd.controller;
 
 import com.example.courseworkisbd.dto.TransferRequestDto;
+import com.example.courseworkisbd.entity.FootballClub;
 import com.example.courseworkisbd.entity.SportDirector;
 import com.example.courseworkisbd.service.FootballClubService;
 import com.example.courseworkisbd.service.TransferService;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -49,6 +51,25 @@ public class TransferController {
         TransferRequestDto transferRequestDto = new TransferRequestDto();
         model.addAttribute("transferDto", transferRequestDto);
         return "transfer_add";
+    }
+
+    @GetMapping("/transfer_make/{id}")
+    public String transferMake(@PathVariable(value = "id") long id, Model model) {
+        model.addAttribute("transferMakeDto", transferService.getTransferDtoById(id));
+        return "transfer_make";
+    }
+
+    @PostMapping("/transfer/make")
+    public String transferMake(@Valid @ModelAttribute("transferMakeDto") TransferRequestDto transferRequestDto,
+                               BindingResult result, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String login = authentication.getName();
+        SportDirector sportDirector = userService.getSportDirectorByEmail(login);
+        FootballClub footballClub = footballClubService.findFootballClubBySportDirector(sportDirector);
+        if (footballClub != null && footballClub.getBudget() >= transferRequestDto.getValue()) {
+            transferService.makeTransfer(transferRequestDto, footballClub);
+        }
+        return "transfers";
     }
 
     @PostMapping("/transfer/add")

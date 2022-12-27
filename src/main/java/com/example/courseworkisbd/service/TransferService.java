@@ -18,8 +18,9 @@ public class TransferService {
     private PlayerRepository playerRepository;
     private TransferRepository transferRepository;
     private FootballClubService footballClubService;
+    private PlayerService playerService;
 
-    public TransferService(PlayerRepository playerRepository, TransferRepository transferRepository,FootballClubService footballClubService) {
+    public TransferService(PlayerRepository playerRepository, TransferRepository transferRepository, FootballClubService footballClubService) {
         this.playerRepository = playerRepository;
         this.transferRepository = transferRepository;
         this.footballClubService = footballClubService;
@@ -32,9 +33,29 @@ public class TransferService {
                 .collect(Collectors.toList());
     }
 
+    public TransferRequestDto getTransferDtoById(long id) {
+        return convertEntityToDto(transferRepository.getById(id));
+    }
+
+
+    public void makeTransfer(TransferRequestDto transferRequestDto, FootballClub footballClub) {
+        footballClub.setBudget(footballClub.getBudget() - transferRequestDto.getValue());
+        footballClub.setPlayersCount(footballClub.getPlayersCount() + 1);
+
+        FootballClub footballClubTo = footballClubService.findFootballClubByName(transferRequestDto.getFootballClub());
+        footballClubTo.setBudget(footballClubTo.getBudget() + transferRequestDto.getValue());
+        footballClubTo.setPlayersCount(footballClubTo.getPlayersCount() - 1);
+
+        playerService.findPlayerById(transferRequestDto.getPlayerId()).setFootballClub(footballClub);
+
+        transferRepository.deleteById(transferRequestDto.getId());
+    }
+
 
     private TransferRequestDto convertEntityToDto(TransferRequest transferRequest) {
         TransferRequestDto transferRequestDto = new TransferRequestDto();
+        transferRequestDto.setPlayerId(transferRequest.getPlayer().getId());
+        transferRequestDto.setId(transferRequest.getId());
         transferRequestDto.setValue(transferRequest.getValue());
         transferRequestDto.setCurrency(transferRequest.getCurrency());
         transferRequestDto.setPosition(transferRequest.getPlayer().getPosition());

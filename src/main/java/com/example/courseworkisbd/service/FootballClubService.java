@@ -1,10 +1,8 @@
 package com.example.courseworkisbd.service;
 
 import com.example.courseworkisbd.dto.FootballClubDto;
-import com.example.courseworkisbd.entity.Coach;
-import com.example.courseworkisbd.entity.FootballClub;
-import com.example.courseworkisbd.entity.FootballLeague;
-import com.example.courseworkisbd.entity.SportDirector;
+import com.example.courseworkisbd.dto.TransferRequestDto;
+import com.example.courseworkisbd.entity.*;
 import com.example.courseworkisbd.repository.FootballClubRepository;
 import com.example.courseworkisbd.service.impl.UserServiceImpl;
 import org.springframework.security.core.Authentication;
@@ -32,6 +30,7 @@ public class FootballClubService {
     public FootballClub findFootballClubBySportDirector(SportDirector sportDirector) {
         return footballClubRepository.findFootballClubBySportDirector(sportDirector);
     }
+
 
     public void saveFootballClub(FootballClubDto footballClubDto) {
         FootballClub footballClub = new FootballClub();

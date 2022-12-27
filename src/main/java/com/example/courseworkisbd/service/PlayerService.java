@@ -38,6 +38,10 @@ public class PlayerService {
                 .collect(Collectors.toList());
     }
 
+    public Player findPlayerById(long id){
+        return playerRepository.getById(id);
+    }
+
     public List<PlayerDto> findAllPlayersDto() {
         List<Player> players = playerRepository.findAll();
         return players.stream().map((player) -> convertEntityToDto(player))

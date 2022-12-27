@@ -12,12 +12,17 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransferRequestDto {
+    private long id;
+
+    private long playerId;
+
     @NotEmpty
     private String name;
     @NotEmpty
     private String surname;
 
     private String position;
+
 
     private int age;
 

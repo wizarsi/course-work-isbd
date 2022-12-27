@@ -47,4 +47,5 @@ public class FootballClub {
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FootballLeague> footballLeagues;
+
 }
