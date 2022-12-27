@@ -41,8 +41,7 @@ public class TransferService {
     public void makeTransfer(TransferRequestDto transferRequestDto, FootballClub footballClubTo) {
         footballClubTo.setBudget(footballClubTo.getBudget() - transferRequestDto.getValue());
         footballClubTo.setPlayersCount(footballClubTo.getPlayersCount() + 1);
-        System.out.println("id: " + transferRequestDto.getFootballClubFromId());
-        FootballClub footballClub = footballClubService.getById(transferRequestDto.getFootballClubFromId());
+        FootballClub footballClub = transferRepository.getById(transferRequestDto.getId()).getFootballClub();
         footballClub.setBudget(footballClubTo.getBudget() + transferRequestDto.getValue());
         footballClub.setPlayersCount(footballClubTo.getPlayersCount() - 1);
 
@@ -61,7 +60,6 @@ public class TransferService {
         transferRequestDto.setPosition(transferRequest.getPlayer().getPosition());
         transferRequestDto.setName(transferRequest.getPlayer().getName());
         transferRequestDto.setSurname(transferRequest.getPlayer().getSurname());
-        transferRequestDto.setFootballClubFromId(transferRequest.getFootballClub().getId());
         transferRequestDto.setFootballClub(transferRequest.getFootballClub().getName());
         transferRequestDto.setAge(transferRequest.getPlayer().getAge());
         return transferRequestDto;

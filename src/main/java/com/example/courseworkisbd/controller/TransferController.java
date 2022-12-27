@@ -53,15 +53,24 @@ public class TransferController {
         return "transfer_add";
     }
 
-    @GetMapping("/transfer_make/{id}")
+    @PostMapping("/transfer_make/{id}")
     public String transferMake(@PathVariable(value = "id") long id, Model model) {
-        model.addAttribute("transferMakeDto", transferService.getTransferDtoById(id));
-        return "transfer_make";
+        TransferRequestDto transferRequestDto = transferService.getTransferDtoById(id);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String login = authentication.getName();
+        SportDirector sportDirector = userService.getSportDirectorByEmail(login);
+        FootballClub footballClub = footballClubService.findFootballClubBySportDirector(sportDirector);
+        System.out.println(footballClub + " " + footballClub.getBudget() + " " +transferRequestDto.getValue() + " ");
+        if (footballClub != null && footballClub.getBudget() >= transferRequestDto.getValue()) {
+            transferService.makeTransfer(transferRequestDto, footballClub);
+        }
+        return "transfers";
     }
 
-    @PostMapping("/transfer/make")
+   /* @PostMapping("/transfer/make")
     public String transferMake(@Valid @ModelAttribute("transferMakeDto") TransferRequestDto transferRequestDto,
                                BindingResult result, Model model) {
+        System.out.println(transferRequestDto);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String login = authentication.getName();
         SportDirector sportDirector = userService.getSportDirectorByEmail(login);
@@ -71,7 +80,7 @@ public class TransferController {
         }
         return "transfers";
     }
-
+*/
     @PostMapping("/transfer/add")
     public String transferAdd(@Valid @ModelAttribute("transferDto") TransferRequestDto transferRequestDto,
                               BindingResult result, Model model) {

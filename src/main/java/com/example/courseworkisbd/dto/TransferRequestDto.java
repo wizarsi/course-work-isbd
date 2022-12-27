@@ -27,7 +27,6 @@ public class TransferRequestDto {
 
     private int age;
 
-    private long footballClubFromId;
 
     private String footballClub;
 
@@ -35,4 +34,18 @@ public class TransferRequestDto {
 
     private String currency;
 
+    @Override
+    public String toString() {
+        return "TransferRequestDto{" +
+                "id=" + id +
+                ", playerId=" + playerId +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", position='" + position + '\'' +
+                ", age=" + age +
+                ", footballClub='" + footballClub + '\'' +
+                ", value=" + value +
+                ", currency='" + currency + '\'' +
+                '}';
+    }
 }

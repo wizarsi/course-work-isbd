@@ -32,7 +32,9 @@
 </nav>
 <div class="container">
     <div class="row">
-        <h1> Бюджет клуба:</h1> <div th:text="${clubBalance}"></div><div th:text="${clubCurrency}"></div>
+        <h1> Бюджет клуба:</h1>
+        <div th:text="${clubBalance}"></div>
+        <div th:text="${clubCurrency}"></div>
     </div>
     <div class="row">
         <h1> Доступные на трансфер игроки </h1>
@@ -61,7 +63,13 @@
             <td th:text="${transfer.value}"></td>
             <td th:text="${transfer.currency}"></td>
             <td>
-            <a th:href="@{/transfer_make/{id}(id=${transfer.id})}" class="btn btn-primary">Трансфер</a>
+                <form
+                        method="post"
+                        th:action="@{/transfer_make/{id}(id=${transfer.id})}"
+                        class="form-horizontal"
+                        role="form">
+                    <button class="btn btn-primary">Трансфер</button>
+                </form>
             </td>
         </tr>
         </tbody>
