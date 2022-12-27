@@ -24,7 +24,10 @@ public class TransferRequestDto {
     private String position;
 
 
+
     private int age;
+
+    private long footballClubFromId;
 
     private String footballClub;
 

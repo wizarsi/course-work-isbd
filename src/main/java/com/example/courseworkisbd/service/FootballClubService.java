@@ -31,6 +31,9 @@ public class FootballClubService {
         return footballClubRepository.findFootballClubBySportDirector(sportDirector);
     }
 
+    public FootballClub getById(long id) {
+        return footballClubRepository.getById(id);
+    }
 
     public void saveFootballClub(FootballClubDto footballClubDto) {
         FootballClub footballClub = new FootballClub();

@@ -38,15 +38,15 @@ public class TransferService {
     }
 
 
-    public void makeTransfer(TransferRequestDto transferRequestDto, FootballClub footballClub) {
-        footballClub.setBudget(footballClub.getBudget() - transferRequestDto.getValue());
-        footballClub.setPlayersCount(footballClub.getPlayersCount() + 1);
+    public void makeTransfer(TransferRequestDto transferRequestDto, FootballClub footballClubTo) {
+        footballClubTo.setBudget(footballClubTo.getBudget() - transferRequestDto.getValue());
+        footballClubTo.setPlayersCount(footballClubTo.getPlayersCount() + 1);
+        System.out.println("id: " + transferRequestDto.getFootballClubFromId());
+        FootballClub footballClub = footballClubService.getById(transferRequestDto.getFootballClubFromId());
+        footballClub.setBudget(footballClubTo.getBudget() + transferRequestDto.getValue());
+        footballClub.setPlayersCount(footballClubTo.getPlayersCount() - 1);
 
-        FootballClub footballClubTo = footballClubService.findFootballClubByName(transferRequestDto.getFootballClub());
-        footballClubTo.setBudget(footballClubTo.getBudget() + transferRequestDto.getValue());
-        footballClubTo.setPlayersCount(footballClubTo.getPlayersCount() - 1);
-
-        playerService.findPlayerById(transferRequestDto.getPlayerId()).setFootballClub(footballClub);
+        playerService.findPlayerById(transferRequestDto.getPlayerId()).setFootballClub(footballClubTo);
 
         transferRepository.deleteById(transferRequestDto.getId());
     }
@@ -61,6 +61,7 @@ public class TransferService {
         transferRequestDto.setPosition(transferRequest.getPlayer().getPosition());
         transferRequestDto.setName(transferRequest.getPlayer().getName());
         transferRequestDto.setSurname(transferRequest.getPlayer().getSurname());
+        transferRequestDto.setFootballClubFromId(transferRequest.getFootballClub().getId());
         transferRequestDto.setFootballClub(transferRequest.getFootballClub().getName());
         transferRequestDto.setAge(transferRequest.getPlayer().getAge());
         return transferRequestDto;
