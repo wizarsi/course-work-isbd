@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.Currency;
 
 @Getter
 @Setter
@@ -23,6 +24,8 @@ public class FootballClubDto {
     private int wonMatches;
 
     private int budget;
+
+    private String currency;
 
     private int playersCount = 0;
 

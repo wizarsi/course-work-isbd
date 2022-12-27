@@ -36,6 +36,7 @@ public class TransferService {
     private TransferRequestDto convertEntityToDto(TransferRequest transferRequest) {
         TransferRequestDto transferRequestDto = new TransferRequestDto();
         transferRequestDto.setValue(transferRequest.getValue());
+        transferRequestDto.setCurrency(transferRequest.getCurrency());
         transferRequestDto.setPosition(transferRequest.getPlayer().getPosition());
         transferRequestDto.setName(transferRequest.getPlayer().getName());
         transferRequestDto.setSurname(transferRequest.getPlayer().getSurname());
@@ -49,6 +50,7 @@ public class TransferService {
         transferRequest.setFootballClub(footballClubService.findFootballClubBySportDirector(sportDirector));
         transferRequest.setPlayer(playerRepository.findByNameAndSurname(transferRequestDto.getName(), transferRequestDto.getSurname()));
         transferRequest.setValue(transferRequestDto.getValue());
+        transferRequest.setCurrency(sportDirector.getFootballClub().getCurrency());
         transferRepository.save(transferRequest);
     }
 

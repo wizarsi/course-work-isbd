@@ -32,7 +32,7 @@
 </nav>
 <div class="container">
     <div class="row">
-        <h1> Бюджет клуба:</h1> <div th:text="${clubBalance}"></div>
+        <h1> Бюджет клуба:</h1> <div th:text="${clubBalance} ${clubCurrency}"></div>
     </div>
     <div class="row">
         <h1> Доступные на трансфер игроки </h1>
@@ -47,6 +47,7 @@
             <th>Позиция</th>
             <th>Футбольный клуб</th>
             <th>Стоимость</th>
+            <th>Валюта</th>
         </tr>
         </thead>
         <tbody>
@@ -57,6 +58,7 @@
             <td th:text="${transfer.position}"></td>
             <td th:text="${transfer.footballClub}"></td>
             <td th:text="${transfer.value}"></td>
+            <td th:text="${transfer.currency}"></td>
         </tr>
         </tbody>
     </table>

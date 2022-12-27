@@ -37,6 +37,7 @@ public class FootballClubService {
         FootballClub footballClub = new FootballClub();
         footballClub.setName(footballClubDto.getName());
         footballClub.setBudget(footballClubDto.getBudget());
+        footballClub.setCurrency(footballClubDto.getCurrency());
         footballClub.setWonMatches(footballClubDto.getWonMatches());
         FootballLeague footballLeague = new FootballLeague();
         footballLeague.setName(footballClubDto.getLeague());
@@ -66,6 +67,7 @@ public class FootballClubService {
         footballClubDto.setName(footballClub.getName());
         footballClubDto.setLeague(footballClub.getFootballLeagues().get(0).getName());
         footballClubDto.setBudget(footballClub.getBudget());
+        footballClubDto.setCurrency(footballClub.getCurrency());
         footballClubDto.setWonMatches(footballClub.getWonMatches());
         footballClubDto.setSportDirector(footballClub.getSportDirector().getName());
         footballClubDto.setCoach(footballClub.getCoach().getName());

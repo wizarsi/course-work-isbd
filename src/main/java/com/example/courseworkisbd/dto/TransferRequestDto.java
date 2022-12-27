@@ -25,4 +25,6 @@ public class TransferRequestDto {
 
     private int value;
 
+    private String currency;
+
 }

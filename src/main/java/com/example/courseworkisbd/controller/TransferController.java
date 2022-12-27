@@ -40,6 +40,7 @@ public class TransferController {
             return "index";
         }
         model.addAttribute("clubBalance", footballClubService.findFootballClubBySportDirector(sportDirector).getBudget());
+        model.addAttribute("clubCurrency", footballClubService.findFootballClubBySportDirector(sportDirector).getCurrency());
         return "transfers";
     }
 

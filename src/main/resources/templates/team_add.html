@@ -79,14 +79,19 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="budget" class="control-label">Бюджет *</label>
+                            <label for="budget" class="control-label">Бюджет</label>
                             <input type="text"
                                    id="budget"
                                    name="budget"
                                    th:field="*{budget}"
                                    class="form-control"
-                                   placeholder="100000000 RUB"
+                                   placeholder="100000000"
                             />
+                            <select th:field="*{currency}">
+                                    <option th:value="EUR" th:text="EUR" th:selected="true"></option>
+                                    <option th:value="USD" th:text="USD"></option>
+                                    <option th:value="RUB" th:text="RUB"></option>
+                            </select>
                         </div>
 
                         <div class="mb-3">

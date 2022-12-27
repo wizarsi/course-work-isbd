@@ -21,6 +21,9 @@ public class TransferRequest {
     @Column
     private int value;
 
+    @Column
+    private String currency;
+
     @OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "club_from", referencedColumnName = "id")
     private FootballClub footballClub;

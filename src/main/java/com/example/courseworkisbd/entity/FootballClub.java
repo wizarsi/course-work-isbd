@@ -35,6 +35,9 @@ public class FootballClub {
     @Column(nullable = false)
     private int budget;
 
+    @Column
+    private String currency;
+
     @Column(nullable = false)
     private int wonMatches;
 
