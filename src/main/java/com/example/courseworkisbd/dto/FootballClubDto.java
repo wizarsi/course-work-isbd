@@ -31,4 +31,17 @@ public class FootballClubDto {
 
     private String sportDirector;
 
+    @Override
+    public String toString() {
+        return "FootballClubDto{" +
+                "name='" + name + '\'' +
+                ", league='" + league + '\'' +
+                ", coach='" + coach + '\'' +
+                ", wonMatches=" + wonMatches +
+                ", budget=" + budget +
+                ", currency='" + currency + '\'' +
+                ", playersCount=" + playersCount +
+                ", sportDirector='" + sportDirector + '\'' +
+                '}';
+    }
 }
