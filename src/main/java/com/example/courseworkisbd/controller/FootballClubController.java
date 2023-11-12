@@ -1,11 +1,8 @@
 package com.example.courseworkisbd.controller;
 
 import com.example.courseworkisbd.dto.FootballClubDto;
-import com.example.courseworkisbd.dto.SportDirectorDto;
 import com.example.courseworkisbd.entity.FootballClub;
-import com.example.courseworkisbd.entity.FootballLeague;
 import com.example.courseworkisbd.entity.SportDirector;
-import com.example.courseworkisbd.repository.FootballClubRepository;
 import com.example.courseworkisbd.service.FootballClubService;
 import com.example.courseworkisbd.service.impl.UserServiceImpl;
 import org.springframework.security.core.Authentication;
@@ -20,6 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.example.courseworkisbd.controller.util.Paths.TEAMS;
+import static com.example.courseworkisbd.controller.util.Paths.TEAM_ADD;
+
 @Controller
 public class FootballClubController {
     private FootballClubService footballClubService;
@@ -29,21 +29,21 @@ public class FootballClubController {
         this.userService=userService;
     }
 
-    @GetMapping("/team_add")
+    @GetMapping(TEAM_ADD)
     public String teamAddPage(Model model){
         FootballClubDto footballClubDto = new FootballClubDto();
         model.addAttribute("footballClubDto", footballClubDto);
         return "team_add";
     }
 
-    @GetMapping("/teams")
+    @GetMapping(TEAMS)
     public String teams(Model model){
         List<FootballClubDto> footballClubs = footballClubService.findAllFootballClubsDto();
         model.addAttribute("footballClubs", footballClubs);
         return "teams";
     }
 
-    @PostMapping("/team/add")
+    @PostMapping(TEAMS)
     public String registration(@Valid @ModelAttribute("footballClubDto") FootballClubDto footballClubDto,
                                BindingResult result,
                                Model model){

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.example.courseworkisbd.controller.util.Paths.*;
+
 @Controller
 public class AuthController {
 
@@ -23,18 +25,18 @@ public class AuthController {
         this.userService = userService;
     }
 
-    @GetMapping("index")
+    @GetMapping(HOME)
     public String home(){
         return "index";
     }
 
-    @GetMapping("/login")
+    @GetMapping(LOGIN)
     public String loginForm() {
         return "login";
     }
 
     // handler method to handle user registration request
-    @GetMapping("register")
+    @GetMapping(REGISTER)
     public String showRegistrationForm(Model model){
         SportDirectorDto user = new SportDirectorDto();
         model.addAttribute("user", user);
@@ -42,7 +44,7 @@ public class AuthController {
     }
 
     // handler method to handle register user form submit request
-    @PostMapping("/register/save")
+    @PostMapping(REGISTER_SAVE)
     public String registration(@Valid @ModelAttribute("sportDirector") SportDirectorDto user,
                                BindingResult result,
                                Model model){
@@ -58,7 +60,7 @@ public class AuthController {
         return "redirect:/register?success";
     }
 
-    @GetMapping("/users")
+    @GetMapping(USERS)
     public String listRegisteredUsers(Model model){
         List<SportDirectorDto> users = userService.findAllUsers();
         model.addAttribute("users", users);

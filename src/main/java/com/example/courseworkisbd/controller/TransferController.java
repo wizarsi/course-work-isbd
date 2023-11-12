@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.example.courseworkisbd.controller.util.Paths.*;
+
 @Controller
 public class TransferController {
     private TransferService transferService;
@@ -31,7 +33,7 @@ public class TransferController {
         this.footballClubService = footballClubService;
     }
 
-    @GetMapping("/transfers")
+    @GetMapping(TRANSFERS)
     public String transfers(Model model) {
         List<TransferRequestDto> transferRequestsDto = transferService.findAllTransfersDto();
         model.addAttribute("transfers", transferRequestsDto);
@@ -46,14 +48,14 @@ public class TransferController {
         return "transfers";
     }
 
-    @GetMapping("/transfer_add")
+    @GetMapping(TRANSFER_ADD)
     public String transferAdd(Model model) {
         TransferRequestDto transferRequestDto = new TransferRequestDto();
         model.addAttribute("transferDto", transferRequestDto);
         return "transfer_add";
     }
 
-    @PostMapping("/transfer_make/{id}")
+    @PostMapping(TRANSFERS_MAKE)
     public String transferMake(@PathVariable(value = "id") long id, Model model) {
         TransferRequestDto transferRequestDto = transferService.getTransferDtoById(id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -81,7 +83,7 @@ public class TransferController {
         return "transfers";
     }
 */
-    @PostMapping("/transfer/add")
+    @PostMapping(TRANSFERS)
     public String transferAdd(@Valid @ModelAttribute("transferDto") TransferRequestDto transferRequestDto,
                               BindingResult result, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

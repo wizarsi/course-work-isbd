@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.example.courseworkisbd.controller.util.Paths.*;
+
 @Controller
 public class PlayerController {
     private PlayerService playerService;
@@ -31,28 +33,28 @@ public class PlayerController {
         this.footballClubService =footballClubService;
     }
 
-    @GetMapping("/player_add")
+    @GetMapping(PLAYER_ADD)
     public String playerAddPage(Model model) {
         PlayerDto playerDto = new PlayerDto();
         model.addAttribute("playerDto", playerDto);
         return "player_add";
     }
 
-    @GetMapping("/players")
+    @GetMapping(PLAYERS)
     public String players(Model model) {
         List<PlayerDto> players = playerService.findAllPlayersDto();
         model.addAttribute("players", players);
         return "players";
     }
 
-    @GetMapping("/myteam")
+    @GetMapping(MYTEAM)
     public String myTeam(Model model) {
         List<PlayerDto> players = playerService.findAllPlayersDtoBySportDirector();
         model.addAttribute("myTeam", players);
         return "myteam";
     }
 
-    @PostMapping("/players/add")
+    @PostMapping(PLAYERS)
     public String addPlayer(@Valid @ModelAttribute("playerDto") PlayerDto playerDto,
                             BindingResult result, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
