@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 @Getter
@@ -16,17 +16,16 @@ public class TransferRequestDto {
 
     private long playerId;
 
-    @NotEmpty
+    @NotEmpty(message = "Имя не должно быть пустым")
     private String name;
-    @NotEmpty
+
+    @NotEmpty(message = "Фамилия не должна быть пустой")
     private String surname;
 
     private String position;
 
-
-
+    @Min(value = 0, message = "Возраст не может быть меньше нуля")
     private int age;
-
 
     private String footballClub;
 

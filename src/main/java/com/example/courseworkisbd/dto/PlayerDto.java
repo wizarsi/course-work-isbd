@@ -1,14 +1,10 @@
 package com.example.courseworkisbd.dto;
 
-import com.example.courseworkisbd.entity.FootballClub;
-import com.example.courseworkisbd.entity.PlayerContract;
-import com.example.courseworkisbd.entity.PlayerStatistic;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 @Getter
@@ -16,11 +12,13 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PlayerDto {
-    @NotEmpty
+    @NotEmpty(message = "Имя не должно быть пустым")
     private String name;
-    @NotEmpty
+
+    @NotEmpty(message = "Фамилия не должна быть пустой")
     private String surname;
 
+    @Min(value = 0, message = "Возраст не может быть меньше нуля")
     private int age;
 
     private String position;

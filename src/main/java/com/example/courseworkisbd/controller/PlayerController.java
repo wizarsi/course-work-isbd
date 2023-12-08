@@ -1,8 +1,6 @@
 package com.example.courseworkisbd.controller;
 
 import com.example.courseworkisbd.dto.PlayerDto;
-import com.example.courseworkisbd.entity.FootballClub;
-import com.example.courseworkisbd.entity.Player;
 import com.example.courseworkisbd.entity.SportDirector;
 import com.example.courseworkisbd.service.FootballClubService;
 import com.example.courseworkisbd.service.PlayerService;
@@ -17,26 +15,26 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+
 import java.util.List;
 
 import static com.example.courseworkisbd.controller.util.Paths.*;
 
 @Controller
 public class PlayerController {
-    private PlayerService playerService;
-    private UserServiceImpl userService;
-    private FootballClubService footballClubService;
+    private final PlayerService playerService;
+    private final UserServiceImpl userService;
+    private final FootballClubService footballClubService;
 
-    public PlayerController(PlayerService playerService, UserServiceImpl userService,FootballClubService footballClubService) {
+    public PlayerController(PlayerService playerService, UserServiceImpl userService, FootballClubService footballClubService) {
         this.playerService = playerService;
         this.userService = userService;
-        this.footballClubService =footballClubService;
+        this.footballClubService = footballClubService;
     }
 
     @GetMapping(PLAYER_ADD)
     public String playerAddPage(Model model) {
-        PlayerDto playerDto = new PlayerDto();
-        model.addAttribute("playerDto", playerDto);
+        model.addAttribute("playerDto", new PlayerDto());
         return "player_add";
     }
 
@@ -47,25 +45,19 @@ public class PlayerController {
         return "players";
     }
 
-    @GetMapping(MYTEAM)
-    public String myTeam(Model model) {
-        List<PlayerDto> players = playerService.findAllPlayersDtoBySportDirector();
-        model.addAttribute("myTeam", players);
-        return "myteam";
-    }
-
     @PostMapping(PLAYERS)
     public String addPlayer(@Valid @ModelAttribute("playerDto") PlayerDto playerDto,
                             BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "player_add";
+        }
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String login = authentication.getName();
         SportDirector sportDirector = userService.getSportDirectorByEmail(login);
-        if (footballClubService.findFootballClubBySportDirector(sportDirector)!= null){
-            playerService.savePlayerBySportDirector(playerDto,sportDirector);
+        if (footballClubService.findFootballClubBySportDirector(sportDirector) != null) {
+            playerService.savePlayerBySportDirector(playerDto, sportDirector);
         }
         return "index";
     }
-
-
-
 }

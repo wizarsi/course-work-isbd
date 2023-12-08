@@ -1,32 +1,34 @@
 package com.example.courseworkisbd.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import java.util.Currency;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class FootballClubDto {
-    @NotEmpty
+    @NotEmpty(message = "Имя клуба не должно быть пустым")
     private String name;
-    @NotEmpty
+
+    @NotEmpty(message = "Лига не должна быть пустой")
     private String league;
-    @NotEmpty
+
+    @NotEmpty(message = "Имя тренера не должно быть пустым")
     private String coach;
 
+    @Min(value = 0, message = "Количество выигранных матчей не может быть отрицательным")
     private int wonMatches;
 
     private int budget;
 
     private String currency;
 
+    @Min(value = 0, message = "Количество игроков не может быть меньше нуля")
     private int playersCount = 0;
 
     private String sportDirector;

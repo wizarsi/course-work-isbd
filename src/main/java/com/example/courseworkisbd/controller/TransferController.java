@@ -23,9 +23,9 @@ import static com.example.courseworkisbd.controller.util.Paths.*;
 
 @Controller
 public class TransferController {
-    private TransferService transferService;
-    private UserServiceImpl userService;
-    private FootballClubService footballClubService;
+    private final TransferService transferService;
+    private final UserServiceImpl userService;
+    private final FootballClubService footballClubService;
 
     public TransferController(TransferService transferService, UserServiceImpl userService, FootballClubService footballClubService) {
         this.transferService = transferService;
@@ -62,30 +62,21 @@ public class TransferController {
         String login = authentication.getName();
         SportDirector sportDirector = userService.getSportDirectorByEmail(login);
         FootballClub footballClub = footballClubService.findFootballClubBySportDirector(sportDirector);
-        System.out.println(footballClub + " " + footballClub.getBudget() + " " +transferRequestDto.getValue() + " ");
+        System.out.println(footballClub + " " + footballClub.getBudget() + " " + transferRequestDto.getValue() + " ");
         if (footballClub != null && footballClub.getBudget() >= transferRequestDto.getValue()) {
             transferService.makeTransfer(transferRequestDto, footballClub);
         }
         return "transfers";
     }
 
-   /* @PostMapping("/transfer/make")
-    public String transferMake(@Valid @ModelAttribute("transferMakeDto") TransferRequestDto transferRequestDto,
-                               BindingResult result, Model model) {
-        System.out.println(transferRequestDto);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String login = authentication.getName();
-        SportDirector sportDirector = userService.getSportDirectorByEmail(login);
-        FootballClub footballClub = footballClubService.findFootballClubBySportDirector(sportDirector);
-        if (footballClub != null && footballClub.getBudget() >= transferRequestDto.getValue()) {
-            transferService.makeTransfer(transferRequestDto, footballClub);
-        }
-        return "transfers";
-    }
-*/
     @PostMapping(TRANSFERS)
     public String transferAdd(@Valid @ModelAttribute("transferDto") TransferRequestDto transferRequestDto,
                               BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("transferDto", transferRequestDto);
+            return "transfer_add";
+        }
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String login = authentication.getName();
         SportDirector sportDirector = userService.getSportDirectorByEmail(login);

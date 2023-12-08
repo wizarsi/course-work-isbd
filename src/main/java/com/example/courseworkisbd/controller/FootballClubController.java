@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+
 import java.util.List;
 
 import static com.example.courseworkisbd.controller.util.Paths.TEAMS;
@@ -22,17 +23,17 @@ import static com.example.courseworkisbd.controller.util.Paths.TEAM_ADD;
 
 @Controller
 public class FootballClubController {
-    private FootballClubService footballClubService;
-    private UserServiceImpl userService;
+    private final FootballClubService footballClubService;
+    private final UserServiceImpl userService;
+
     public FootballClubController(FootballClubService footballClubService, UserServiceImpl userService) {
         this.footballClubService = footballClubService;
-        this.userService=userService;
+        this.userService = userService;
     }
 
     @GetMapping(TEAM_ADD)
     public String teamAddPage(Model model){
-        FootballClubDto footballClubDto = new FootballClubDto();
-        model.addAttribute("footballClubDto", footballClubDto);
+        model.addAttribute("footballClubDto", new FootballClubDto());
         return "team_add";
     }
 
@@ -47,11 +48,13 @@ public class FootballClubController {
     public String registration(@Valid @ModelAttribute("footballClubDto") FootballClubDto footballClubDto,
                                BindingResult result,
                                Model model){
+        if (result.hasErrors()) {
+            return "team_add";
+        }
+
         FootballClub existing = footballClubService.findFootballClubByName(footballClubDto.getName());
         if (existing != null) {
-            //result.rejectValue("name", null, "There is already an football club registered with that name");
             return "index";
-
         }
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -60,15 +63,8 @@ public class FootballClubController {
         if (footballClubService.findFootballClubBySportDirector(sportDirector) != null) {
             return "index";
         }
+
         footballClubService.saveFootballClub(footballClubDto);
-
-        /*if (result.hasErrors()) {
-            model.addAttribute("footballClubDto", footballClubDto);
-            System.out.println("blin");
-
-            return "team_add";
-        }*/
         return "index";
     }
-
 }
