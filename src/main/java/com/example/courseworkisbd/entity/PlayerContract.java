@@ -14,11 +14,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Entity
 @Table(name = "player_contracts")
-public class PlayerContract {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class PlayerContract extends BaseEntity{
     @Column
     private int value;
 

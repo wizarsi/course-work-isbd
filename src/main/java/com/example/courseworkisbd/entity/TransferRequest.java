@@ -12,11 +12,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="transfer_requests")
-public class TransferRequest {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Table(name = "transfer_requests")
+public class TransferRequest extends BaseEntity {
 
     @Column
     private int value;
@@ -24,11 +21,11 @@ public class TransferRequest {
     @Column
     private String currency;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "club_from", referencedColumnName = "id")
     private FootballClub footballClub;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "player", referencedColumnName = "id")
     private Player player;
 }

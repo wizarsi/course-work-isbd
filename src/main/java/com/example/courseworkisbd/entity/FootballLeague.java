@@ -17,11 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name="football_leagues")
-public class FootballLeague {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class FootballLeague extends BaseEntity{
     @Column
     private String name;
 

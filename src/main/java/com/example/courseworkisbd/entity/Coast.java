@@ -13,11 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "coasts")
-public class Coast {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Coast extends BaseEntity{
     @Column
     private String currencyRecipient;
 

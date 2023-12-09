@@ -13,10 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name="coaches")
-public class Coach {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Coach extends BaseEntity{
 
     @Column(nullable = false)
     private String name;
